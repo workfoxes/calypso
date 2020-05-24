@@ -1,35 +1,16 @@
 package client
 
 import (
-	"bytes"
 	"fmt"
-	error2 "github.com/airstrik/gobase/pkg/error"
+	error2 "github.com/airstrik/gobase/pkg/server/error"
 	"github.com/airstrik/gobase/pkg/utils"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"log"
-	"os"
-	"os/exec"
+	"time"
 )
-
-var (
-	dialect string
-	host string
-	port string
-	user string
-	password string
-	err error
-)
-
-func init(){
-	dialect = os.Getenv("_DB_DIALECT")
-	host = os.Getenv("_DB_HOST")
-	port= os.Getenv("_DB_PORT")
-	user = os.Getenv("_DB_USER")
-	password = os.Getenv("_DB_PASSWORD")
-}
 
 type Database struct {
 	Dialect string
@@ -56,16 +37,27 @@ func (db *Database) getArgs() string {
 }
 
 func (db *Database) CreateDB(database string) {
-	cmd := exec.Command("createdb", "-p", db.port, "-h", db.host, "-U", db.userName, "-e", database)
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	if err = cmd.Run(); err != nil {
-		log.Printf("Error: %v", err)
-	}
-	log.Printf("Output: %q\n", out.String())
+	_ = db.DB.Exec("CREATE DATABASE " + database)
+	log.Print("Create new Database for account ")
 }
 
-func NewDatabase(database string) *Database {
+func (db *Database) Create(v ...interface{}) {
+	db.DB.Create(v)
+	db.DB.Model(user).Update("CreatedAt", time.Now())
+	db.DB.Model(user).Update("UpdatedAt", time.Now())
+	log.Print("Create new Database for account ")
+}
+
+func LoadBaseDatabase() *Database  {
+	if BaseDB == nil {
+		log.Print("Creating the Database connection from the Application server")
+		BaseDB = LoadDatabase("account")
+	}
+	return BaseDB
+}
+
+
+func LoadDatabase(database string) *Database {
 	_db := &Database{
 		Dialect: dialect,
 		userName: user,
@@ -74,7 +66,9 @@ func NewDatabase(database string) *Database {
 		port: port,
 		database: database,
 	}
-	_db.DB, err = gorm.Open(dialect, _db.getArgs())
+	var DbConnection *gorm.DB
+	DbConnection , err = gorm.Open(dialect, _db.getArgs())
+	_db.DB = DbConnection.Begin()
 	utils.HandleCustomError(err, error2.TenantNotFound)
 	return _db
 }

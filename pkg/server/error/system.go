@@ -15,3 +15,12 @@ func TenantNotFound() BaseError {
 	}
 	return err
 }
+
+func JsonParseFailure() BaseError {
+	err = &Response{
+		ErrorMessage: "Failed to Accept the Request",
+		LangMessage: "Failed to Accept the Request",
+		ErrorCode: "ERR00003",
+	}
+	return err
+}
