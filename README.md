@@ -1,5 +1,5 @@
 # Go-Base
-its is an Base Module for any airstrik application to bootstrap the application with all the security aspect
+Its is an Base Module for any airstrik application to bootstrap the application with all the security aspect
 
 
 # To handle pull requests
