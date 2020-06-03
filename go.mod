@@ -3,6 +3,7 @@ module github.com/airstrik/gobase
 go 1.14
 
 require (
+	github.com/aws/aws-sdk-go v1.31.4
 	github.com/go-chi/chi v4.1.1+incompatible
 	github.com/go-chi/cors v1.1.1
 	github.com/go-redis/redis v6.15.7+incompatible

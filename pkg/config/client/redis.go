@@ -1,6 +1,7 @@
 package client
 
 import (
+	"github.com/airstrik/gobase/pkg/utils"
 	"github.com/go-redis/redis"
 	"log"
 )
@@ -18,15 +19,15 @@ func (rc *RedisClient) get(key string) interface{}  {
 	return value
 }
 
-func NewRedisClient(accountId string)  *RedisClient  {
-	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		DB:       0,  // use default DB
-	})
-	pong, err := client.Ping().Result()
+func NewRedisClient(prefix string)  *RedisClient  {
+	if RedisConnection == nil {
+		return nil
+	}
+	pong, err := RedisConnection.Ping().Result()
+	utils.HandleError(err)
 	log.Print(pong, err)
 	return &RedisClient{
-		prefix: accountId+"::",
-		client: client,
+		prefix: prefix+"::",
+		client: RedisConnection,
 	}
 }

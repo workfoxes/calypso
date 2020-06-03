@@ -2,7 +2,8 @@ package middleware
 
 import (
 	"encoding/json"
-	error2 "github.com/airstrik/gobase/pkg/error"
+	"github.com/airstrik/gobase/pkg/config"
+	error2 "github.com/airstrik/gobase/pkg/server/error"
 	"github.com/go-chi/chi/middleware"
 	"log"
 	"net/http"
@@ -37,6 +38,8 @@ func ErrorHandling(next http.Handler) http.Handler {
 				if err != nil {
 					w.WriteHeader(http.StatusInternalServerError)
 					ctx := r.Context()
+					config := ctx.Value("AccountCtx").(*config.Context)
+					config.DB.DB.Rollback()
 					requestId := middleware.GetReqID(ctx)
 					err.SetRequestId(requestId)
 					_ = json.NewEncoder(w).Encode(err.Json())

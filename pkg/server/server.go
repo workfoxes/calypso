@@ -15,6 +15,7 @@ import (
 )
 var (
 	Env string
+	IsMultiTenant bool
 )
 
 func init()  {
@@ -30,11 +31,32 @@ type Server struct {
 	Name string
 	Port int
 	Route *chi.Mux
+	IsMultiTenant bool
+}
+
+func GetServer(name string, port int) *Server {
+	IsMultiTenant = false
+	return &Server{
+		Name: name,
+		Port: port,
+		Route: createRoute(),
+		IsMultiTenant: false,
+	}
+}
+
+func GetMultiTenantServer(name string, port int) *Server {
+	IsMultiTenant = true
+	return &Server{
+		Name: name,
+		Port: port,
+		Route: createRoute(),
+		IsMultiTenant: true,
+	}
 }
 
 
 // CreateServer : Create Simple Application server for any boot strap Application
-func CreateServer(name string, port int) *chi.Mux {
+func createRoute() *chi.Mux {
 	log.Print("Creating Application service for the any service")
 
 	r := chi.NewRouter()
