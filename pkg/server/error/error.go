@@ -6,15 +6,15 @@ type BaseError interface {
 	SetRequestId(requestId string)
 }
 
-func ParseError(err error) BaseError  {
+func ParseError(err error) BaseError {
 	return New(err.Error())
 }
 
 type Response struct {
-	RequestId string
-	ErrorCode string
+	RequestId    string
+	ErrorCode    string
 	ErrorMessage string
-	LangMessage string
+	LangMessage  string
 }
 
 func (err *Response) Error() string {
@@ -24,7 +24,6 @@ func (err *Response) Error() string {
 func (err *Response) Json() *Response {
 	return err
 }
-
 
 func (err *Response) SetRequestId(requestId string) {
 	err.RequestId = requestId

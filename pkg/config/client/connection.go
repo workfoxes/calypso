@@ -9,7 +9,7 @@ import (
 
 var (
 	RedisConnection *redis.Client
-	SnsClient		*sns.SNS
+	SnsClient       *sns.SNS
 	dialect         string
 	host            string
 	port            string
@@ -32,7 +32,7 @@ func init() {
 }
 
 func CreateRedisConnection() {
-	if redisHost != ""{
+	if redisHost != "" {
 		RedisConnection = redis.NewClient(&redis.Options{
 			Addr: redisHost,
 			DB:   0, // use default DB
@@ -46,4 +46,3 @@ func CreateAwsSession() {
 	}))
 	SnsClient = sns.New(sess)
 }
-

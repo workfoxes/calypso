@@ -13,13 +13,13 @@ import (
 )
 
 type Database struct {
-	Dialect string
+	Dialect  string
 	userName string
 	password string
-	host string
-	port string
+	host     string
+	port     string
 	database string
-	DB *gorm.DB
+	DB       *gorm.DB
 }
 
 func (db *Database) getArgs() string {
@@ -30,7 +30,7 @@ func (db *Database) getArgs() string {
 	case "postgres":
 		con := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", db.host, db.port,
 			db.userName, db.password, db.database)
-		return  con
+		return con
 	default:
 		return ""
 	}
@@ -48,7 +48,7 @@ func (db *Database) Create(v ...interface{}) {
 	log.Print("Create new Database for account ")
 }
 
-func LoadBaseDatabase() *Database  {
+func LoadBaseDatabase() *Database {
 	if BaseDB == nil {
 		log.Print("Creating the Database connection from the Application server")
 		BaseDB = LoadDatabase("account")
@@ -56,18 +56,17 @@ func LoadBaseDatabase() *Database  {
 	return BaseDB
 }
 
-
 func LoadDatabase(database string) *Database {
 	_db := &Database{
-		Dialect: dialect,
+		Dialect:  dialect,
 		userName: user,
 		password: password,
-		host: host,
-		port: port,
+		host:     host,
+		port:     port,
 		database: database,
 	}
 	var DbConnection *gorm.DB
-	DbConnection , err = gorm.Open(dialect, _db.getArgs())
+	DbConnection, err = gorm.Open(dialect, _db.getArgs())
 	_db.DB = DbConnection.Begin()
 	utils.HandleCustomError(err, error2.TenantNotFound)
 	return _db

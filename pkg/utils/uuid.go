@@ -5,8 +5,7 @@ import (
 	"strings"
 )
 
-func ShortUUID(prefix string) string  {
+func ShortUUID(prefix string) string {
 	uuidV4, _ := shortid.Generate()
-	return strings.ToLower(prefix+uuidV4)
+	return strings.ToLower(prefix + uuidV4)
 }
-

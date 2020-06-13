@@ -11,7 +11,7 @@ type RedisClient struct {
 	prefix string
 }
 
-func (rc *RedisClient) get(key string) interface{}  {
+func (rc *RedisClient) get(key string) interface{} {
 	value, err := rc.client.Get(key).Result()
 	if err == redis.Nil {
 		log.Print("Key Does not exist in redis client", err)
@@ -19,7 +19,7 @@ func (rc *RedisClient) get(key string) interface{}  {
 	return value
 }
 
-func NewRedisClient(prefix string)  *RedisClient  {
+func NewRedisClient(prefix string) *RedisClient {
 	if RedisConnection == nil {
 		return nil
 	}
@@ -27,7 +27,7 @@ func NewRedisClient(prefix string)  *RedisClient  {
 	utils.HandleError(err)
 	log.Print(pong, err)
 	return &RedisClient{
-		prefix: prefix+"::",
+		prefix: prefix + "::",
 		client: RedisConnection,
 	}
 }

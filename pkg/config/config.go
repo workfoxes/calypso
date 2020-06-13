@@ -12,9 +12,9 @@ var (
 
 type Context struct {
 	AccountId string
-	DB *client.Database
-	BaseDB *client.Database
-	Cache *client.RedisClient
+	DB        *client.Database
+	BaseDB    *client.Database
+	Cache     *client.RedisClient
 }
 
 func LoadContext(r *http.Request, userId string) *Context {
@@ -30,9 +30,9 @@ func LoadContext(r *http.Request, userId string) *Context {
 		redisPrefix += "::" + userId
 	}
 	return &Context{
-		AccountId:	_AccountId,
-		DB: 		_db,
-		BaseDB: 	client.LoadBaseDatabase(),
-		Cache: 		client.NewRedisClient(redisPrefix),
+		AccountId: _AccountId,
+		DB:        _db,
+		BaseDB:    client.LoadBaseDatabase(),
+		Cache:     client.NewRedisClient(redisPrefix),
 	}
 }

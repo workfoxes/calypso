@@ -13,22 +13,22 @@ var (
 	dialect string
 )
 
-func init(){
+func init() {
 	dialect = os.Getenv("_DB_DIALECT")
-	
+
 }
 
 type Database struct {
 	Dialect string
-	DB *gorm.DB
+	DB      *gorm.DB
 }
 
 func getArgs(dialect string) string {
 	switch dialect {
-		case "postgres":
-			return "user:postgres@dockerpassword/postgres"
-		default:
-			return ""
+	case "postgres":
+		return "user:postgres@dockerpassword/postgres"
+	default:
+		return ""
 	}
 }
 
@@ -37,6 +37,6 @@ func NewDatabase() *Database {
 	utils.HandleError(err)
 	return &Database{
 		Dialect: dialect,
-		DB: db,
+		DB:      db,
 	}
 }

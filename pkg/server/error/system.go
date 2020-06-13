@@ -10,8 +10,8 @@ func New(str string) BaseError {
 func TenantNotFound() BaseError {
 	err = &Response{
 		ErrorMessage: "Account Id is Invalid Not found",
-		LangMessage: "Account Id is Invalid Not found in system",
-		ErrorCode: "ERR00002",
+		LangMessage:  "Account Id is Invalid Not found in system",
+		ErrorCode:    "ERR00002",
 	}
 	return err
 }
@@ -19,8 +19,8 @@ func TenantNotFound() BaseError {
 func JsonParseFailure() BaseError {
 	err = &Response{
 		ErrorMessage: "Failed to Accept the Request",
-		LangMessage: "Failed to Accept the Request",
-		ErrorCode: "ERR00003",
+		LangMessage:  "Failed to Accept the Request",
+		ErrorCode:    "ERR00003",
 	}
 	return err
 }

@@ -12,10 +12,10 @@ func PreRequest(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		var userId string
-		requestId :=middleware.GetReqID(ctx)
+		requestId := middleware.GetReqID(ctx)
 		log.Print("Request Handling for the Request Id ", requestId)
 		_CSRFToken := r.Header.Get("X-")
-		if  _CSRFToken != "" {
+		if _CSRFToken != "" {
 			// Here Comes the Account Validation and Authorization
 		}
 		config := config.LoadContext(r, userId)
@@ -28,4 +28,3 @@ func PreRequest(next http.Handler) http.Handler {
 	}
 	return http.HandlerFunc(fn)
 }
-

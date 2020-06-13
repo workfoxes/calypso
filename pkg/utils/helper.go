@@ -6,23 +6,23 @@ import (
 	"strings"
 )
 
-func GenerateSuccessResponse() interface{}  {
-	return &system.SuccessResponse{ Status: "Success" }
+func GenerateSuccessResponse() interface{} {
+	return &system.SuccessResponse{Status: "Success"}
 }
 
-func HandleError(err error)  {
-	if err!=nil{
+func HandleError(err error) {
+	if err != nil {
 		panic(err)
 	}
 }
 
-func HandleCustomError(err error, customerErr func() baseError.BaseError)  {
-	if err!=nil{
+func HandleCustomError(err error, customerErr func() baseError.BaseError) {
+	if err != nil {
 		panic(customerErr())
 	}
 }
 
-func EmailDomainExtractor(email string) (string, string){
+func EmailDomainExtractor(email string) (string, string) {
 	result := strings.Split(string(email), "@")
 	domain := strings.Split(string(result[1]), ".")
 	return result[0], domain[0]

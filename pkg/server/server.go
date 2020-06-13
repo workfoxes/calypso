@@ -13,14 +13,16 @@ import (
 	"strconv"
 	"time"
 )
+
 var (
-	Env string
+	Env           string
 	IsMultiTenant bool
 )
 
-func init()  {
+func init() {
 	Env = os.Getenv("ENV")
 }
+
 type ApplicationServer interface {
 	Start()
 	RegisterRoute(pattern string, fn func(r chi.Router))
@@ -28,18 +30,18 @@ type ApplicationServer interface {
 
 type Server struct {
 	ApplicationServer
-	Name string
-	Port int
-	Route *chi.Mux
+	Name          string
+	Port          int
+	Route         *chi.Mux
 	IsMultiTenant bool
 }
 
 func GetServer(name string, port int) *Server {
 	IsMultiTenant = false
 	return &Server{
-		Name: name,
-		Port: port,
-		Route: createRoute(),
+		Name:          name,
+		Port:          port,
+		Route:         createRoute(),
 		IsMultiTenant: false,
 	}
 }
@@ -47,13 +49,12 @@ func GetServer(name string, port int) *Server {
 func GetMultiTenantServer(name string, port int) *Server {
 	IsMultiTenant = true
 	return &Server{
-		Name: name,
-		Port: port,
-		Route: createRoute(),
+		Name:          name,
+		Port:          port,
+		Route:         createRoute(),
 		IsMultiTenant: true,
 	}
 }
-
 
 // CreateServer : Create Simple Application server for any boot strap Application
 func createRoute() *chi.Mux {
@@ -91,15 +92,14 @@ func createRoute() *chi.Mux {
 	return r
 }
 
-func (srv *Server) RegisterRoute(pattern string, fn func(r chi.Router)) chi.Router   {
+func (srv *Server) RegisterRoute(pattern string, fn func(r chi.Router)) chi.Router {
 	return srv.Route.Route(pattern, fn)
 }
 
-func (srv *Server) Start()  {
+func (srv *Server) Start() {
 	err := http.ListenAndServe(":"+strconv.Itoa(srv.Port), srv.Route)
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Print("Terminating the Application : " + srv.Name)
 }
-
