@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/airstrik/gobase/pkg/schema/system"
-	baseError "github.com/airstrik/gobase/pkg/server/error"
+	"github.com/workfoxes/gobase/pkg/schema/system"
+	baseError "github.com/workfoxes/gobase/pkg/server/error"
 	"strings"
 )
 

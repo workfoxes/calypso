@@ -1,4 +1,4 @@
-module github.com/airstrik/gobase
+module github.com/workfoxes/gobase
 
 go 1.14
 

@@ -2,8 +2,8 @@ package client
 
 import (
 	"fmt"
-	error2 "github.com/airstrik/gobase/pkg/server/error"
-	"github.com/airstrik/gobase/pkg/utils"
+	error2 "github.com/workfoxes/gobase/pkg/server/error"
+	"github.com/workfoxes/gobase/pkg/utils"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"

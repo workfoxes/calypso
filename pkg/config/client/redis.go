@@ -1,7 +1,7 @@
 package client
 
 import (
-	"github.com/airstrik/gobase/pkg/utils"
+	"github.com/workfoxes/gobase/pkg/utils"
 	"github.com/go-redis/redis"
 	"log"
 )

@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"encoding/json"
-	"github.com/airstrik/gobase/pkg/config"
-	error2 "github.com/airstrik/gobase/pkg/server/error"
+	"github.com/workfoxes/gobase/pkg/config"
+	error2 "github.com/workfoxes/gobase/pkg/server/error"
 	"github.com/go-chi/chi/middleware"
 	"log"
 	"net/http"

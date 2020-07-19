@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/airstrik/gobase/pkg/config/client"
+	"github.com/workfoxes/gobase/pkg/config/client"
 	"github.com/go-chi/chi"
 	"net/http"
 )
