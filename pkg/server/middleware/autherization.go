@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"github.com/airstrik/gobase/pkg/config"
+	"github.com/workfoxes/gobase/pkg/config"
 	"net/http"
 )
 

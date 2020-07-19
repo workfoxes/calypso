@@ -2,8 +2,8 @@ package server
 
 import (
 	"encoding/json"
-	middleware2 "github.com/airstrik/gobase/pkg/server/middleware"
-	"github.com/airstrik/gobase/pkg/utils"
+	middleware2 "github.com/workfoxes/gobase/pkg/server/middleware"
+	"github.com/workfoxes/gobase/pkg/utils"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
