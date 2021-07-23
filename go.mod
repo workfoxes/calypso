@@ -1,4 +1,4 @@
-module gitlab.com/itsparser/gobase
+module github.com/itsparser/gobase
 
 go 1.16
 
