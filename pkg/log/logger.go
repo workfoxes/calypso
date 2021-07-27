@@ -1,22 +1,41 @@
 package log
 
 import (
+	"github.com/workfoxes/gobase/pkg/config"
 	"go.uber.org/zap"
 )
 
-func New() *zap.Logger {
-	config := zap.Config{
-		Level:       zap.NewAtomicLevelAt(zap.DebugLevel),
-		Development: true,
-		Sampling: &zap.SamplingConfig{
-			Initial:    100,
-			Thereafter: 100,
-		},
-		Encoding:         "json",
-		EncoderConfig:    zap.NewDevelopmentEncoderConfig(),
-		OutputPaths:      []string{"stderr"},
-		ErrorOutputPaths: []string{"stderr"},
+var L *zap.Logger
+
+func New(config *config.Config) *zap.Logger {
+	if config.Env == "Dev" {
+		L, _ = zap.NewDevelopment()
+	} else {
+		L, _ = zap.NewProduction()
 	}
-	logger, _ := config.Build()
-	return logger
+	return L
+}
+
+// Debug logs a message at DebugLevel. The message includes any fields passed
+// at the log site, as well as any fields accumulated on the logger.
+func Debug(msg string, fields ...zap.Field) {
+	L.Debug(msg)
+}
+
+// Info logs a message at InfoLevel. The message includes any fields passed
+// at the log site, as well as any fields accumulated on the logger.
+func Info(msg string, fields ...zap.Field) {
+	L.Info(msg)
+}
+
+// Warn logs a message at WarnLevel. The message includes any fields passed
+// at the log site, as well as any fields accumulated on the logger.
+func Warn(msg string, fields ...zap.Field) {
+	L.Warn(msg)
+}
+
+// Error logs a message at ErrorLevel. The message includes any fields passed
+// at the log site, as well as any fields accumulated on the logger.
+func Error(msg string, fields ...zap.Field) {
+	L.Error(msg)
 }
