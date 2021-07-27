@@ -12,19 +12,40 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/pprof"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
+	"go.uber.org/dig"
 )
+
+type ApplicationConfig struct {
+	Name string
+	Port int
+}
+
+func New(config *ApplicationConfig) *ApplicationServer {
+	app := fiber.New()
+	_server := &ApplicationServer{Name: config.Name, Port: config.Port, Server: app, container: dig.New()}
+	return _server
+}
+
+func (app *ApplicationServer) AddProvider(constructor interface{}, opts ...dig.ProvideOption) {
+	app.container.Provide(constructor, opts...)
+}
+
+func (app *ApplicationServer) Invoker(function interface{}, opts ...dig.ProvideOption) {
+	app.container.Invoke(function)
+}
 
 // ApplicationServer : Application server will hold the service object for the application
 type ApplicationServer struct {
-	Server *fiber.App
-	Name   string
-	Port   int
+	Server    *fiber.App
+	Name      string
+	Port      int
+	container *dig.Container
 }
 
 // CreateAppServer : func to create Application server object to Manage the application server
 func CreateAppServer(Name string, Port int) *ApplicationServer {
 	app := fiber.New()
-	_server := &ApplicationServer{Name: Name, Port: Port, Server: app}
+	_server := &ApplicationServer{Name: Name, Port: Port, Server: app, container: dig.New()}
 	return _server
 }
 
