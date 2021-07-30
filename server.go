@@ -37,6 +37,9 @@ func DefultProviders(app *ApplicationServer) {
 	app.Invoker(func(l *zap.Logger) {
 		log.L = l
 	})
+	app.Invoker(func(_config *config.Config) {
+		config.C = _config
+	})
 }
 
 func (app *ApplicationServer) AddProvider(constructor interface{}, opts ...dig.ProvideOption) {
@@ -53,6 +56,7 @@ type ApplicationServer struct {
 	Name      string
 	Port      int
 	container *dig.Container
+	config    *config.Config
 }
 
 // CreateAppServer : func to create Application server object to Manage the application server

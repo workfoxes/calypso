@@ -6,9 +6,16 @@ import (
 	"os"
 )
 
+var C *Config
+
 type Config struct {
-	TraderKey string `json:"TraderKey"`
-	Env       string `json:"ENV"`
+	TraderKey          string `json:"TraderKey"`
+	Env                string `json:"ENV"`
+	GoogleClientId     string `json:"GoogleClientId"`
+	GoogleClientSecret string `json:"GoogleClientSecret"`
+	HOST               string `json:"Host"`
+	REDIS_HOST         string `json:"RedisHost"`
+	REDIS_PASSWORD     string `json:"RedisPassword"`
 }
 
 var DefaultConfigFileName = "config.json"

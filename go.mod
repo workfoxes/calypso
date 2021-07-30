@@ -4,7 +4,9 @@ go 1.16
 
 require (
 	github.com/andybalholm/brotli v1.0.3 // indirect
+	github.com/go-redis/redis/v8 v8.11.1 // indirect
 	github.com/gofiber/fiber/v2 v2.15.0
+	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/klauspost/compress v1.13.1 // indirect
 	github.com/teris-io/shortid v0.0.0-20201117134242-e59966efd125 // indirect
 	github.com/valyala/fasthttp v1.28.0 // indirect
