@@ -1,4 +1,4 @@
-module github.com/workfoxes/gobase
+module github.com/workfoxes/calypso
 
 go 1.16
 
