@@ -14,8 +14,8 @@ type Config struct {
 	GoogleClientId     string `json:"GoogleClientId"`
 	GoogleClientSecret string `json:"GoogleClientSecret"`
 	HOST               string `json:"Host"`
-	REDIS_HOST         string `json:"RedisHost"`
-	REDIS_PASSWORD     string `json:"RedisPassword"`
+	RedisHost          string `json:"RedisHost"`
+	RedisPassword      string `json:"RedisPassword"`
 }
 
 var DefaultConfigFileName = "config.json"

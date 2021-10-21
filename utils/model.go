@@ -1,12 +1,12 @@
 package utils
 
 type ResponseObject struct {
-	Id int
-	Status string
-	Message string
-	ErrorCode string
+	Id         int
+	Status     string
+	Message    string
+	ErrorCode  string
 	ArgMessage string
-	RequestId string
+	RequestId  string
 }
 
-type SuccessResponse struct {Status string}
+type SuccessResponse struct{ Status string }

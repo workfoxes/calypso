@@ -12,9 +12,9 @@ var ctx = context.Background()
 
 func New(config *config.Config) *redis.Client {
 	R = redis.NewClient(&redis.Options{
-		Addr:     config.REDIS_HOST,
-		Password: config.REDIS_PASSWORD, // no password set
-		DB:       0,                     // use default DB
+		Addr:     config.RedisHost,
+		Password: config.RedisPassword, // no password set
+		DB:       0,                    // use default DB
 	})
 	return R
 }

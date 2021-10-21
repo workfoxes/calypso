@@ -23,15 +23,16 @@ type ApplicationConfig struct {
 }
 
 // New : Will create New Server the Need as default for the Workfoxes Application
-// 		 Also will add all the default provider to ther server
+// 		 Also will add all the default provider to this server
 func New(config *ApplicationConfig) *ApplicationServer {
 	app := fiber.New()
 	_server := &ApplicationServer{Name: config.Name, Port: config.Port, Server: app, container: dig.New()}
-	DefultProviders(_server)
+	DefaultProviders(_server)
 	return _server
 }
 
-func DefultProviders(app *ApplicationServer) {
+// DefaultProviders : will provide all the default provider in the server start
+func DefaultProviders(app *ApplicationServer) {
 	app.AddProvider(config.GetConfig)
 	app.AddProvider(log.New)
 	app.Invoker(func(l *zap.Logger) {
@@ -42,12 +43,20 @@ func DefultProviders(app *ApplicationServer) {
 	})
 }
 
+// AddProvider : This will add new provider to the server container
 func (app *ApplicationServer) AddProvider(constructor interface{}, opts ...dig.ProvideOption) {
-	app.container.Provide(constructor, opts...)
+	err := app.container.Provide(constructor, opts...)
+	if err != nil {
+		panic(err)
+	}
 }
 
+// Invoker : This will add new provider to the server container
 func (app *ApplicationServer) Invoker(function interface{}, opts ...dig.ProvideOption) {
-	app.container.Invoke(function)
+	err := app.container.Invoke(function)
+	if err != nil {
+		panic(err)
+	}
 }
 
 // ApplicationServer : Application server will hold the service object for the application

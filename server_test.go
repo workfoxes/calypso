@@ -14,7 +14,10 @@ func Test001CreateNewApplicationServer(t *testing.T) {
 		msg := fmt.Sprintf("Hello, 👋!")
 		return c.SendString(msg) // => Hello john 👋!
 	})
-	app.Listen(":9000")
+	err := app.Listen(":9000")
+	if err != nil {
+		return
+	}
 }
 
 func TestCreateAppServer(t *testing.T) {
@@ -22,12 +25,10 @@ func TestCreateAppServer(t *testing.T) {
 		Name string
 		Port int
 	}
-	tests := []struct {
+	var tests []struct {
 		name string
 		args args
 		want *ApplicationServer
-	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
