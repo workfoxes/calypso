@@ -1,4 +1,4 @@
-package gobase
+package calypso
 
 import (
 	"strconv"
@@ -11,10 +11,11 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/pprof"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/workfoxes/gobase/pkg/config"
-	"github.com/workfoxes/gobase/pkg/log"
 	"go.uber.org/dig"
 	"go.uber.org/zap"
+
+	"github.com/workfoxes/calypso/pkg/config"
+	"github.com/workfoxes/calypso/pkg/log"
 )
 
 type ApplicationConfig struct {

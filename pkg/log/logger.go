@@ -1,7 +1,7 @@
 package log
 
 import (
-	"github.com/workfoxes/gobase/pkg/config"
+	"github.com/workfoxes/calypso/pkg/config"
 	"go.uber.org/zap"
 )
 

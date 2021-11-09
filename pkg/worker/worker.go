@@ -2,9 +2,9 @@ package worker
 
 import (
 	"github.com/go-redis/redis/v8"
-	_redis "github.com/workfoxes/gobase/pkg/client/redis"
-	"github.com/workfoxes/gobase/pkg/config"
-	"github.com/workfoxes/gobase/pkg/log"
+	_redis "github.com/workfoxes/calypso/pkg/client/redis"
+	"github.com/workfoxes/calypso/pkg/config"
+	"github.com/workfoxes/calypso/pkg/log"
 	"go.uber.org/dig"
 	"go.uber.org/zap"
 )

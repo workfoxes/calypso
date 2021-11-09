@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/workfoxes/gobase/pkg/config"
+	"github.com/workfoxes/calypso/pkg/config"
 )
 
 var R *redis.Client
