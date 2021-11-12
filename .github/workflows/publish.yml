@@ -21,7 +21,7 @@ jobs:
 
     - name: Build the calypso Docker image
       run: |
-        docker build . -t ghcr.io/workfoxes/calypso:latest -t ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/*/} 
+        docker build . -t ghcr.io/workfoxes/calypso:latest -t ghcr.io/workfoxes/calypso:${github.ref_name} 
         docker run ghcr.io/workfoxes/calypso:latest
-        docker push ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/*/}
-        docker push ghcr.io/workfoxes/calypso:$latest
+        docker push ghcr.io/workfoxes/calypso:${github.ref_name}
+        docker push ghcr.io/workfoxes/calypso:latest
