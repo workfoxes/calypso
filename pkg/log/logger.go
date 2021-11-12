@@ -1,41 +1,71 @@
 package log
 
 import (
-	"github.com/workfoxes/calypso/pkg/config"
-	"go.uber.org/zap"
+	"os"
+	"sync"
+
+	_logger "github.com/sirupsen/logrus"
 )
 
-var L *zap.Logger
+var L _logger.Logger
 
-func New(config *config.Config) *zap.Logger {
-	if config.Env == "Dev" {
-		L, _ = zap.NewDevelopment()
-	} else {
-		L, _ = zap.NewProduction()
+type Logger struct {
+	once     sync.Once
+	_default *_logger.Logger
+}
+
+func Init() *_logger.Logger {
+	return &_logger.Logger{
+		Out:          os.Stderr,
+		Formatter:    new(_logger.TextFormatter),
+		Hooks:        make(_logger.LevelHooks),
+		Level:        _logger.TraceLevel,
+		ExitFunc:     os.Exit,
+		ReportCaller: false,
 	}
-	return L
 }
 
-// Debug logs a message at DebugLevel. The message includes any fields passed
-// at the log site, as well as any fields accumulated on the logger.
-func Debug(msg string, fields ...zap.Field) {
-	L.Debug(msg)
+// Trace logs a message at level Trace on the standard logger.
+func Trace(args ...interface{}) {
+	L.Trace(args...)
 }
 
-// Info logs a message at InfoLevel. The message includes any fields passed
-// at the log site, as well as any fields accumulated on the logger.
-func Info(msg string, fields ...zap.Field) {
-	L.Info(msg)
+// Debug logs a message at level Debug on the standard logger.
+func Debug(args ...interface{}) {
+	L.Debug(args...)
 }
 
-// Warn logs a message at WarnLevel. The message includes any fields passed
-// at the log site, as well as any fields accumulated on the logger.
-func Warn(msg string, fields ...zap.Field) {
-	L.Warn(msg)
+// Print logs a message at level Info on the standard logger.
+func Print(args ...interface{}) {
+	L.Print(args...)
 }
 
-// Error logs a message at ErrorLevel. The message includes any fields passed
-// at the log site, as well as any fields accumulated on the logger.
-func Error(msg string, fields ...zap.Field) {
-	L.Error(msg)
+// Info logs a message at level Info on the standard logger.
+func Info(args ...interface{}) {
+	L.Info(args...)
+}
+
+// Warn logs a message at level Warn on the standard logger.
+func Warn(args ...interface{}) {
+	L.Warn(args...)
+}
+
+// Warning logs a message at level Warn on the standard logger.
+func Warning(args ...interface{}) {
+	L.Warning(args...)
+}
+
+// Error logs a message at level Error on the standard logger.
+func Error(args ...interface{}) {
+	L.Error(args...)
+}
+
+// Panic logs a message at level Panic on the standard logger.
+func Panic(args ...interface{}) {
+	L.Panic(args...)
+}
+
+// Fatal logs a message at level Fatal on the standard logger then the process will exit with status set to 1.
+func Fatal(args ...interface{}) {
+	L.Fatal(args...)
 }

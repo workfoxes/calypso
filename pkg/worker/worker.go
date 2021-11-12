@@ -2,11 +2,12 @@ package worker
 
 import (
 	"github.com/go-redis/redis/v8"
+	_logger "github.com/sirupsen/logrus"
+	"go.uber.org/dig"
+
 	_redis "github.com/workfoxes/calypso/pkg/client/redis"
 	"github.com/workfoxes/calypso/pkg/config"
 	"github.com/workfoxes/calypso/pkg/log"
-	"go.uber.org/dig"
-	"go.uber.org/zap"
 )
 
 type Worker struct {
@@ -25,9 +26,9 @@ func New(name string) *Worker {
 // DefaultProviders : will provide all the default provider in the server start
 func DefaultProviders(worker *Worker) {
 	worker.AddProvider(config.GetConfig)
-	worker.AddProvider(log.New)
+	worker.AddProvider(log.Init)
 	worker.AddProvider(_redis.New)
-	worker.Invoker(func(l *zap.Logger) {
+	worker.Invoker(func(l _logger.Logger) {
 		log.L = l
 	})
 	worker.Invoker(func(_config *config.Config) {

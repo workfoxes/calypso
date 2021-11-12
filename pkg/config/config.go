@@ -22,12 +22,12 @@ var DefaultConfigFileName = "config.json"
 
 func GetConfig() *Config {
 	env, ok := os.LookupEnv("ENV")
-	var config Config
-	data, _ := ioutil.ReadFile(DefaultConfigFileName)
-	_ = json.Unmarshal(data, &config)
 	if !ok {
 		env = "Dev"
 	}
+	var config Config
+	data, _ := ioutil.ReadFile(DefaultConfigFileName)
+	_ = json.Unmarshal(data, &config)
 	config.Env = env
 	return &config
 }

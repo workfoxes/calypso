@@ -11,8 +11,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/pprof"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
+	_logger "github.com/sirupsen/logrus"
 	"go.uber.org/dig"
-	"go.uber.org/zap"
 
 	"github.com/workfoxes/calypso/pkg/config"
 	"github.com/workfoxes/calypso/pkg/log"
@@ -35,9 +35,9 @@ func New(config *ApplicationConfig) *ApplicationServer {
 // DefaultProviders : will provide all the default provider in the server start
 func DefaultProviders(app *ApplicationServer) {
 	app.AddProvider(config.GetConfig)
-	app.AddProvider(log.New)
-	app.Invoker(func(l *zap.Logger) {
-		log.L = l
+	app.AddProvider(log.Init)
+	app.Invoker(func(l *_logger.Logger) {
+		log.L = *l
 	})
 	app.Invoker(func(_config *config.Config) {
 		config.C = _config
@@ -66,7 +66,7 @@ type ApplicationServer struct {
 	Name      string
 	Port      int
 	container *dig.Container
-	config    *config.Config
+	// config    *config.Config
 }
 
 // CreateAppServer : func to create Application server object to Manage the application server
