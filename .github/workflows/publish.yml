@@ -1,6 +1,9 @@
 name: publish
 
-on: [push]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   publish-calypso-image:
@@ -14,10 +17,11 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.DOCKER_SECRET }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the calypso Docker image
       run: |
-        docker build . --tag ghcr.io/workfoxes/calypso:latest
+        docker build . -t ghcr.io/workfoxes/calypso:latest -t ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/*/} 
         docker run ghcr.io/workfoxes/calypso:latest
-        docker push ghcr.io/workfoxes/calypso:latest
+        docker push ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/*/}
+        docker push ghcr.io/workfoxes/calypso:$latest
