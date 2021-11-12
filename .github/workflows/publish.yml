@@ -1,9 +1,9 @@
 name: publish
 
 on:
-  push:
+  create:
     tags:
-      - '*'
+      - *
 
 jobs:
   publish-calypso-image:
@@ -21,7 +21,7 @@ jobs:
 
     - name: Build the calypso Docker image
       run: |
-        docker build . -t ghcr.io/workfoxes/calypso:latest -t ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/v*/} 
+        docker build . --tag ghcr.io/workfoxes/calypso:latest --tag ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/*/} 
         docker run ghcr.io/workfoxes/calypso:latest
-        docker push ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/v*/}
+        docker push ghcr.io/workfoxes/calypso:${GITHUB_REF#refs/*/}
         docker push ghcr.io/workfoxes/calypso:latest
