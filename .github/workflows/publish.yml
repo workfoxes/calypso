@@ -3,7 +3,7 @@ name: publish
 on:
   create:
     tags:
-      - *
+      - '*'
 
 jobs:
   publish-calypso-image:
